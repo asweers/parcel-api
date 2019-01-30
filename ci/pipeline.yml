@@ -1,0 +1,30 @@
+---
+jobs:
+  - name: deploy-parcel-api
+    plan:
+    - get: parcel-api-repo
+      trigger: true
+    - task: build-artifact
+      file: parcel-api-repo/ci/tasks/build.yml
+    - put: deploy-to-cf
+      params: 
+        manifest: parcel-api-repo/manifest.yml
+        path: build-output/parcel-api-0.1.0.jar
+
+resources:
+  - name: parcel-api-repo
+    type: git
+    source:
+      uri: {{GIT_REPO}}
+      branch: {{GIT_BRANCH}}
+      private_key: {{GIT_PRIVATE_KEY}}
+    
+  - name: deploy-to-cf
+    type: cf
+    source:
+      api: {{PWS_API}}
+      username: {{PWS_USER}}
+      password: {{PWS_PASS}}
+      organization: {{PWS_ORG}}
+      space: {{PWS_SPACE}}
+      skip_cert_check: true

@@ -1,0 +1,10 @@
+---
+applications:
+- name: parcel-api
+  buildpack: java_buildpack
+  path: target/parcel-api-0.1.0.jar
+  disk_quota: 512M
+  memory: 1024M
+  instances: 2
+  services: 
+   - parcel-api-postresql
