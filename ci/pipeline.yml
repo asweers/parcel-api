@@ -17,7 +17,6 @@ resources:
     source:
       uri: {{GIT_REPO}}
       branch: {{GIT_BRANCH}}
-      private_key: {{GIT_PRIVATE_KEY}}
     
   - name: deploy-to-cf
     type: cf
